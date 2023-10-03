@@ -11,6 +11,9 @@ app.get("/", (req, res) => {
 });
 
 app.post("/ussd", (req, res) => {
+
+    console.log(req.body);
+    
     const serviceCode = req.body.serviceCode;
     const phoneNumber = req.body.phoneNumber;
     const sessionId = req.body.sessionId;
