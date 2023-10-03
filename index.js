@@ -5,6 +5,7 @@ const app = express();
 const port = process.env.PORT;
 
 app.use(express.json());
+app.use(express.urlencoded({extended: false}));
 
 app.get("/", (req, res) => {
     console.log(`Hey hey 😊`);
@@ -13,7 +14,7 @@ app.get("/", (req, res) => {
 app.post("/ussd", (req, res) => {
 
     console.log(req.body);
-    
+
     const serviceCode = req.body.serviceCode;
     const phoneNumber = req.body.phoneNumber;
     const sessionId = req.body.sessionId;
