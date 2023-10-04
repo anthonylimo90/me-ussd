@@ -49,6 +49,7 @@ const customerQuery = (phoneNumber) => {
             }
         }
     );
+    console.log(resp);
     return resp.data;
 };
 
@@ -69,6 +70,7 @@ app.post("/ussd", (req, res) => {
         // To show this menu a customer has to be registred
         // Perform a customer query check before proceeding
         // If not registered, show a menu asking the customer to register
+        console.log(data);
         const data = customerQuery(phoneNumber);
         response = `CON Welcome to Mashinani FI ${data.firstName} 
         1. Check Balance
