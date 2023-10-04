@@ -28,23 +28,6 @@ const removeThePlus = (phoneNumber) => {
     return correctPhoneNumber;
 };
 
-const postData = async (url = "", data = {}) => {
-    const response = await fetch(
-        url,
-        {
-            method: "POST",
-            mode: "cors",
-            cache: "no-cache",
-            credentials: "same-origin",
-            headers: {
-                "Content-Type":"application/json",
-                "Bearer": process.env.LOOP_TOKEN
-            },
-            body: JSON.stringify(data)
-        },
-    );
-};
-
 app.post("/ussd", (req, res) => {
 
     console.log(req.body);
