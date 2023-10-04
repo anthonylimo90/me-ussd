@@ -74,15 +74,15 @@ app.post("/ussd", async(req, res) => {
         // Perform a customer query check before proceeding
         // If not registered, show a menu asking the customer to register
         await customerQuery(phoneNumber).then(resp => {
-            response = `CON Welcome to Mashinani FI ${resp.data.firstName} 
-            1. Check Balance
-            2. Check KYC status
-            3. Check Loan Limit`;
+            console.log(resp);
+            // response = `CON Welcome to Mashinani FI ${resp.data.firstName} 
+            // 1. Check Balance
+            // 2. Check KYC status
+            // 3. Check Loan Limit`;
         }).catch(error => {
             console.error(error);
             response = "END Something went wrong"
         });
-        console.log(data);
     } else if (text == "1") {
         // Fetch account balance from the wallet
         let balance;
