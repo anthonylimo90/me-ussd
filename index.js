@@ -92,6 +92,10 @@ app.post("/ussd", async (req, res) => {
         // });
         const resp = await customerQuery(phoneNumber);
         console.log(resp);
+        response = `CON Welcome to Mashinani FI ${resp.firstName} 
+            // 1. Check Balance
+            // 2. Check KYC status
+            // 3. Check Loan Limit`;
     } else if (text == "1") {
         // Fetch account balance from the wallet
         let balance;
