@@ -28,8 +28,8 @@ const removeThePlus = (phoneNumber) => {
     return correctPhoneNumber;
 };
 
-const customerQuery = async (phoneNumber) => {
-    await axios.post(
+const customerQuery = (phoneNumber) => {
+    const customerResp = axios.post(
         "https://sandbox.loop.co.ke/v1/customer/query",
         {
             "requestDateTime": getCurrentDate(),
@@ -48,12 +48,19 @@ const customerQuery = async (phoneNumber) => {
                 'Authorization': `Bearer ${process.env.LOOP_TOKEN}`
             }
         }
-    ).then(data => {
-        console.log(data.data);
-        return data.data;
-    }).catch(error => {
-        console.error(error.message);
-    });
+    );
+
+    console.log(customerResp.data);
+    
+    
+    // then(data => {
+    //     console.log(data.data);
+    //     return data.data;
+    // }).catch(error => {
+    //     console.error(error.message);
+    // });
+
+    return customerResp.data;
 };
 
 app.post("/ussd", (req, res) => {
