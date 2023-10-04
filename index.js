@@ -28,6 +28,23 @@ const removeThePlus = (phoneNumber) => {
     return correctPhoneNumber;
 };
 
+const postData = async (url = "", data = {}) => {
+    const response = await fetch(
+        url,
+        {
+            method: "POST",
+            mode: "cors",
+            cache: "no-cache",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type":"application/json",
+                "Bearer": process.env.LOOP_TOKEN
+            },
+            body: JSON.stringify(data)
+        },
+    );
+};
+
 app.post("/ussd", (req, res) => {
 
     console.log(req.body);
@@ -46,25 +63,38 @@ app.post("/ussd", (req, res) => {
         // Perform a customer query check before proceeding
         // If not registered, show a menu asking the customer to register
 
-        axios.post(
-            "https://sandbox.loop.co.ke/v1/customer/query",
-            {
-                "requestDateTime": getCurrentDate(),
-                "requestId": generateRandomNumber(),
-                "userIdType": "P",
-                "reserve1": "",
-                "reserve2": "",
-                "requestChannel": "APP",
-                "userId": removeThePlus(phoneNumber),
-                "partnerId": "LOOP",
-                "productSet": "LOOP"
-            },
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Bearer': process.env.LOOP_TOKEN
-                }
-            }
+        // axios.post(
+        //     "https://sandbox.loop.co.ke/v1/customer/query",
+        //     {
+        //         "requestDateTime": getCurrentDate(),
+        //         "requestId": generateRandomNumber(),
+        //         "userIdType": "P",
+        //         "reserve1": "",
+        //         "reserve2": "",
+        //         "requestChannel": "APP",
+        //         "userId": removeThePlus(phoneNumber),
+        //         "partnerId": "LOOP",
+        //         "productSet": "LOOP"
+        //     },
+        //     {
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //             'Bearer': process.env.LOOP_TOKEN
+        //         }
+        //     }
+        // )
+        postData("https://sandbox.loop.co.ke/v1/customer/query",
+        {
+            "requestDateTime": getCurrentDate(),
+            "requestId": generateRandomNumber(),
+            "userIdType": "P",
+            "reserve1": "",
+            "reserve2": "",
+            "requestChannel": "APP",
+            "userId": removeThePlus(phoneNumber),
+            "partnerId": "LOOP",
+            "productSet": "LOOP"
+        }
         ).then(data => {
             console.log(data);
             response = `CON Welcome ${data.firstName} What would you like to check?
