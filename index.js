@@ -73,8 +73,8 @@ app.post("/ussd", async(req, res) => {
         // To show this menu a customer has to be registred
         // Perform a customer query check before proceeding
         // If not registered, show a menu asking the customer to register
-        await customerQuery(phoneNumber).then(data => {
-            response = `CON Welcome to Mashinani FI ${data.firstName} 
+        await customerQuery(phoneNumber).then(resp => {
+            response = `CON Welcome to Mashinani FI ${resp.data.firstName} 
             1. Check Balance
             2. Check KYC status
             3. Check Loan Limit`;
