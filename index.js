@@ -70,7 +70,7 @@ app.post("/ussd", (req, res) => {
         // Perform a customer query check before proceeding
         // If not registered, show a menu asking the customer to register
         const data = customerQuery(phoneNumber);
-        response = `CON Welcome to Mashinani FI ${data.name} 
+        response = `CON Welcome to Mashinani FI ${data.firstName} 
         1. Check Balance
         2. Check KYC status
         3. Check Loan Limit`
