@@ -1,4 +1,5 @@
 require("dotenv").config();
+const fetch = require("node-fetch");
 const axios = require("axios");
 const express = require("express");
 const app = express();
@@ -63,39 +64,27 @@ app.post("/ussd", (req, res) => {
         // Perform a customer query check before proceeding
         // If not registered, show a menu asking the customer to register
 
-        // axios.post(
-        //     "https://sandbox.loop.co.ke/v1/customer/query",
-        //     {
-        //         "requestDateTime": getCurrentDate(),
-        //         "requestId": generateRandomNumber(),
-        //         "userIdType": "P",
-        //         "reserve1": "",
-        //         "reserve2": "",
-        //         "requestChannel": "APP",
-        //         "userId": removeThePlus(phoneNumber),
-        //         "partnerId": "LOOP",
-        //         "productSet": "LOOP"
-        //     },
-        //     {
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //             'Bearer': process.env.LOOP_TOKEN
-        //         }
-        //     }
-        // )
-        postData("https://sandbox.loop.co.ke/v1/customer/query",
-        {
-            "requestDateTime": getCurrentDate(),
-            "requestId": generateRandomNumber(),
-            "userIdType": "P",
-            "reserve1": "",
-            "reserve2": "",
-            "requestChannel": "APP",
-            "userId": removeThePlus(phoneNumber),
-            "partnerId": "LOOP",
-            "productSet": "LOOP"
-        }
-        ).then(data => {
+        axios.post(
+            "https://sandbox.loop.co.ke/v1/customer/query",
+            {
+                "requestDateTime": getCurrentDate(),
+                "requestId": generateRandomNumber(),
+                "userIdType": "P",
+                "reserve1": "",
+                "reserve2": "",
+                "requestChannel": "APP",
+                "userId": removeThePlus(phoneNumber),
+                "partnerId": "LOOP",
+                "productSet": "LOOP"
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${process.env.LOOP_TOKEN}`
+                }
+            }
+        )
+        .then(data => {
             console.log(data);
             response = `CON Welcome ${data.firstName} What would you like to check?
             1. Account Balance
