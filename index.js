@@ -28,8 +28,8 @@ const removeThePlus = (phoneNumber) => {
     return correctPhoneNumber;
 };
 
-const customerQuery = (phoneNumber) => {
-    const customerResp = axios.post(
+const customerQuery = async (phoneNumber) => {
+    const customerResp = await axios.post(
         "https://sandbox.loop.co.ke/v1/customer/query",
         {
             "requestDateTime": getCurrentDate(),
