@@ -29,7 +29,7 @@ const removeThePlus = (phoneNumber) => {
 };
 
 const customerQuery = async (phoneNumber) => {
-    const resp = await axios.post(
+    await axios.post(
         "https://sandbox.loop.co.ke/v1/customer/query",
         {
             "requestDateTime": getCurrentDate(),
@@ -48,12 +48,15 @@ const customerQuery = async (phoneNumber) => {
                 'Authorization': `Bearer ${process.env.LOOP_TOKEN}`
             }
         }
-    );
-    console.log(resp);
-    return resp.data;
+    ).then(data => {
+        console.log(data);
+        return data;
+    }).catch(error => {
+        console.error(error.message);
+    });
 };
 
-app.post("/ussd", async (req, res) => {
+app.post("/ussd", async(req, res) => {
 
     console.log(req.body);
 
@@ -70,13 +73,16 @@ app.post("/ussd", async (req, res) => {
         // To show this menu a customer has to be registred
         // Perform a customer query check before proceeding
         // If not registered, show a menu asking the customer to register
-        const data = await customerQuery(phoneNumber);
+        await customerQuery(phoneNumber).then(data => {
+            response = `CON Welcome to Mashinani FI ${data.firstName} 
+            1. Check Balance
+            2. Check KYC status
+            3. Check Loan Limit`;
+        }).catch(error => {
+            console.error(error);
+            response = "END Something went wrong"
+        });
         console.log(data);
-
-        response = `CON Welcome to Mashinani FI ${data.firstName} 
-        1. Check Balance
-        2. Check KYC status
-        3. Check Loan Limit`;
     } else if (text == "1") {
         // Fetch account balance from the wallet
         let balance;
