@@ -50,7 +50,7 @@ const customerQuery = async (phoneNumber) => {
         }
     ).then(data => {
         console.log(data.data);
-        return data;
+        return data.data;
     }).catch(error => {
         console.error(error.message);
     });
