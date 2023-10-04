@@ -68,10 +68,7 @@ app.post("/ussd", (req, res) => {
         )
         .then(data => {
             console.log(data);
-            response = `CON Welcome ${data.firstName} What would you like to check?
-            1. Account Balance
-            2. KYC Status
-            3. Check Loan Limit`;
+            response = "CON Welcome" + data.firstName + "What would you like to check?\n1. Account Balance\n2. KYC Status\n3. Check Loan Limit";
         }).catch(error => {
             console.error(error);
             response = "END You are not a registered customer";
