@@ -63,7 +63,7 @@ const customerQuery = async (phoneNumber) => {
     return customerResp.data;
 };
 
-app.post("/ussd", (req, res) => {
+app.post("/ussd", async (req, res) => {
 
     console.log(req.body);
 
@@ -90,7 +90,7 @@ app.post("/ussd", (req, res) => {
         //     console.error(error);
         //     response = "END Something went wrong"
         // });
-        const resp = customerQuery(phoneNumber);
+        const resp = await customerQuery(phoneNumber);
         console.log(resp);
     } else if (text == "1") {
         // Fetch account balance from the wallet
