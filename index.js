@@ -67,17 +67,13 @@ app.post("/ussd", (req, res) => {
             }
         ).then(data => {
             console.log(data);
-            response = `
-            CON 
-            Welcome ${data.firstName} What would you like to check?
+            response = `CON Welcome ${data.firstName} What would you like to check?
             1. Account Balance
             2. KYC Status
             3. Check Loan Limit`;
         }).catch(error => {
-            console.error();
-            response = `
-            END You are not a registered customer
-            `;
+            console.error(error);
+            response = "END You are not a registered customer";
         });
     } else if (text == "1") {
         // Fetch account balance from the wallet
