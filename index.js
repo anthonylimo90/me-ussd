@@ -34,7 +34,7 @@ app.post("/ussd", async (req, res) => {
         // If not registered, show a menu asking the customer to register
         const resp = await customer.customerQuery(phoneNumber);
         console.log(resp);
-        if(resp.responseCode == "IASP0000") {
+        if(resp.responseCode == "IASP00000") {
             response = `CON Welcome to Nisome Bank 
             ${resp.firstName} ${resp.lastName} 
             User No ${resp.userNo}
