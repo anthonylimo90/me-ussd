@@ -46,7 +46,7 @@ app.post("/ussd", (req, res) => {
         // Perform a customer query check before proceeding
         // If not registered, show a menu asking the customer to register
 
-        const data = axios.post(
+        axios.post(
             "https://sandbox.loop.co.ke/v1/customer/query",
             {
                 "requestDateTime": getCurrentDate(),
