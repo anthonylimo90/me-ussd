@@ -34,18 +34,13 @@ app.post("/ussd", async (req, res) => {
         // If not registered, show a menu asking the customer to register
         const resp = await customer.customerQuery(phoneNumber);
         console.log(resp);
-        if(resp.responseCode === "IASP00000") {
+        
             response = `CON Welcome to Nisome Bank 
             ${resp.firstName} ${resp.lastName} 
             User No ${resp.userNo}
             1. Check Balance
             2. Check KYC status
             3. Check Loan Limit`;
-        } else if (resp.responseCode === "IASP4002") {
-            response = `END You are not a registred customer. Kindly register for the service and try again`
-        } else {
-            response = `END Something went wrong with our systems. Kindly try again.`    
-        }
     } else if (text == "1") {
         // Fetch account balance from the wallet
         let balance;
