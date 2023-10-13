@@ -1,4 +1,4 @@
-## Mee USSD
+## Mee USSD (Alpha Build)
 
 This is a simple USSD app calling some new APIs.
 
