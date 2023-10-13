@@ -33,13 +33,15 @@ const dataController = {
     },
     queryUserData: async (phoneNumber) => {
         
-        const queryResp = await Model.findOne(
-            {
-                phoneNumber: phoneNumber
-            }
-        ).exec();
-
-        return queryResp;
+        Model.findOne({phoneNumber: phoneNumber}, (err, user) => {
+          if(err){
+            return false
+          }  else if (!user) {
+            return false
+          } else {
+            return true
+          }
+        })
         
     }
 }
