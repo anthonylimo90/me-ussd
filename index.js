@@ -53,7 +53,7 @@ app.post("/ussd", async (req, res) => {
         // If not registered, show a menu asking the customer to register
         
 
-        if (controller.queryUserData(phoneNumber) = {}) {
+        if (controller.queryUserData(phoneNumber) == {}) {
             response = "END User not registered. Kindly register with the service before proceeding";
         } else {
             const resp = await customer.customerQuery(phoneNumber);
