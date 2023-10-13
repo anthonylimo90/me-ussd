@@ -59,7 +59,7 @@ app.post("/ussd", async (req, res) => {
         // and are able to get data saved to the DB, they can access the menu now without needed to do a customer query on the API
         
 
-        if (!controller.queryUserData(phoneNumber)) {
+        if (controller.queryUserData(phoneNumber) == null) {
             const resp = await customer.customerQuery(phoneNumber);
             console.log(resp, phoneNumber);
             if(resp.responseCode === "IASP4002"){

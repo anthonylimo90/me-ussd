@@ -33,15 +33,10 @@ const dataController = {
     },
     queryUserData: async (phoneNumber) => {
         
-        Model.find({phoneNumber: phoneNumber}, (err, user) => {
-          if(err){
-            return false
-          }  else if (!user) {
-            return false
-          } else {
-            return true
-          }
-        })
+        const queryResponse = await Model.exists({phoneNumber: phoneNumber});
+        console.log(queryResponse);
+
+        return queryResponse;
         
     }
 }
