@@ -51,18 +51,24 @@ app.post("/ussd", async (req, res) => {
         // To show this menu a customer has to be registred
         // Perform a customer query check before proceeding
         // If not registered, show a menu asking the customer to register
-        const resp = await customer.customerQuery(phoneNumber);
-        console.log(resp, phoneNumber);
         
-        response = `
-        CON Welcome to Nisome Bank 
-        ${resp.firstName} ${resp.lastName} 
-        User No ${resp.userNo}
-        1. Check Balance
-        2. Check KYC status
-        3. Check Loan Limit`;
 
-        await controller.saveInitialData(resp, phoneNumber);
+        if (controller.queryUserData(phoneNumber) = {}) {
+            response = "END User not registered. Kindly register with the service before proceeding";
+        } else {
+            const resp = await customer.customerQuery(phoneNumber);
+            console.log(resp, phoneNumber);
+            
+            response = `
+            CON Welcome to Nisome Bank 
+            ${resp.firstName} ${resp.lastName} 
+            User No ${resp.userNo}
+            1. Check Balance
+            2. Check KYC status
+            3. Check Loan Limit`;
+
+            await controller.saveInitialData(resp, phoneNumber);
+        }
 
     } else if (text == "1") {
         // Fetch account balance from the wallet

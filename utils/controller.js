@@ -26,14 +26,21 @@ const dataController = {
             phoneNumber: dataToSave.phoneNumber
         });
 
-        await data.save().then(() => console.log("Data saved").catch(error => console.error(`Error: ${error}`)));
+        let dataResp = await data.save();
+        console.log(dataResp)
+
+        return dataResp;
     },
     queryUserData: async (phoneNumber) => {
-        await Model.findOne(
+        
+        const queryResp = await Model.findOne(
             {
                 phoneNumber: phoneNumber
             }
         ).exec();
+
+        return queryResp;
+        
     }
 }
 
