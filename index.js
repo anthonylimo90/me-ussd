@@ -97,8 +97,12 @@ app.post("/ussd", async (req, res) => {
 
         const data = await controller.queryUserData(phoneNumber);
         console.log(data);
-        
-        response = `END Your KYC status is ${data.kycStatus}`;
+
+        if(data !== null) {
+            response = `END Your KYC status is ${data.kycStatus}`;      
+        } else {
+            response = "END Something went wrong querying your KYC status. Kindly try again"
+        }
     } else if (text == "3") {
         // Check loan limit for a user who has a loan limit
         // Check loan query API
