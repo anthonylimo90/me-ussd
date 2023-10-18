@@ -4,6 +4,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
 
+// Model
+
 const Model = require("./models/model");
 
 const mongoString = process.env.MONGO_URI;
